@@ -7,8 +7,6 @@
 #include <fstream>
 #include "Matrix.h"
 #include <ctime>
-#include <stdexcept>
-#include <numeric>
 
 using namespace std;
 
@@ -34,10 +32,7 @@ double function_w(double previousW, double currentW, double nextW, double q, dou
 }
 
 double exactFunction(double x, double t) {
-	auto val = (long double)1 / (c1*x - pow(c1, 2.0)*t + c2);
-	if (fabs(val) >= 10000000000)
-		throw std::logic_error("watafak");
-	return val;
+	return (long double)1 / (c1*x - pow(c1, 2.0)*t + c2);
 }
 
 void assessErrors(int xSteps, int tSteps, Matrix exact, Matrix approx);
@@ -108,28 +103,12 @@ void assessErrors(int xSteps, int tSteps, Matrix exact, Matrix approx) {
 	long double averageRelativeError = totalRelativeError / (tSteps * xSteps);
 
 
-	cout << "Ñåðåäíÿ àáñîëþòíà ïîõèáêà : " << averageAbsoluteError << "\n"
-	     << "Ñåðåäíÿ âiäíîñíà ïîõèáêà : " << averageRelativeError << "\n"
-		 << "Màêñèìàëüíà àáñîëþòíà ïîõèáêà : " << maxAbsoluteError << "\n"
-		 << "Ìàêñèìàëüíà âiäíîñíà ïîõèáêà : " << maxRelativeError << "\n\n"
-	     << "×àñ âèêîíàííÿ òî÷íîãî ðîçâ'ÿçêó : " << exact_time << "\n"
-		 << "×àñ âèêîíàííÿ çíàéäåíîãî ðîçâ'ÿçêó : " << approx_time << endl;
-
-	for (int i = 0; i <= tSteps; ++i) {
-		for (int j = 0; j <= xSteps; ++j) {
-			cout << fixed << setprecision(5) << approx(i, j) << "\t";
-		}
-		cout << endl;
-	}
-
-	cout << endl;
-	
-	for (int i = 0; i <= tSteps; ++i) {
-		for (int j = 0; j <= xSteps; ++j) {
-			cout << fixed << setprecision(5) << exact(i, j) << "\t";
-		}
-		cout << endl;
-	}
+	cout << "Ð¡ÐµÑ€ÐµÐ´Ð½Ñ Ð°Ð±ÑÐ¾Ð»ÑŽÑ‚Ð½Ð° Ð¿Ð¾Ñ…Ð¸Ð±ÐºÐ° : " << averageAbsoluteError << "\n"
+	     << "Ð¡ÐµÑ€ÐµÐ´Ð½Ñ Ð²iÐ´Ð½Ð¾ÑÐ½Ð° Ð¿Ð¾Ñ…Ð¸Ð±ÐºÐ° : " << averageRelativeError << "\n"
+             << "MÐ°ÐºÑÐ¸Ð¼Ð°Ð»ÑŒÐ½Ð° Ð°Ð±ÑÐ¾Ð»ÑŽÑ‚Ð½Ð° Ð¿Ð¾Ñ…Ð¸Ð±ÐºÐ° : " << maxAbsoluteError << "\n"
+	     << "ÐœÐ°ÐºÑÐ¸Ð¼Ð°Ð»ÑŒÐ½Ð° Ð²iÐ´Ð½Ð¾ÑÐ½Ð° Ð¿Ð¾Ñ…Ð¸Ð±ÐºÐ° : " << maxRelativeError << "\n\n"
+	     << "Ð§Ð°Ñ Ð²Ð¸ÐºÐ¾Ð½Ð°Ð½Ð½Ñ Ñ‚Ð¾Ñ‡Ð½Ð¾Ð³Ð¾ Ñ€Ð¾Ð·Ð²'ÑÐ·ÐºÑƒ : " << exact_time << "\n"
+	     << "Ð§Ð°Ñ Ð²Ð¸ÐºÐ¾Ð½Ð°Ð½Ð½Ñ Ð·Ð½Ð°Ð¹Ð´ÐµÐ½Ð¾Ð³Ð¾ Ñ€Ð¾Ð·Ð²'ÑÐ·ÐºÑƒ : " << approx_time << endl;
 
 }
 
