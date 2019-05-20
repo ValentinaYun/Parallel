@@ -13,7 +13,7 @@ using namespace std;
 int val;
 
 const double a = 1;
-const double c1 = 0.3;
+const double c1 = 0.5;
 const double c2 = 1;
 
 const long double tMin = 0.0;
@@ -21,8 +21,8 @@ const long double tMax = 1.0;
 const long double xMin = 0.0;
 const long double xMax = 1.0;
 
-const int xSteps = 8;
-const int tSteps = 1000
+const int xSteps = 100;
+const int tSteps = 100000;
 ;
 const long double xStep = 1.0 / (xSteps -1) ;
 const long double tStep = 1.0 / (tSteps - 1);
@@ -142,12 +142,14 @@ void saveToFiles(Matrix exact, Matrix approx, int xSteps, int tSteps) {
 	ofstream fout2("approx.txt");
 	
 	for (int i = 0; i <= tSteps; ++i) {
+		fout1 << "{";
+		fout2 << "{";
 		for (int j = 0; j <= xSteps; ++j) {
-			fout1 << fixed << setprecision(5) << exact(i, j) << "\t";
-			fout2 << fixed << setprecision(5) << approx(i, j) << "\t";
+			fout1 << fixed << setprecision(5) << exact(i, j) << ", ";
+			fout2 << fixed << setprecision(5) << approx(i, j) << ", ";
 		}
-		fout1 << endl;
-		fout2 << endl;
+		fout1 << "}," << endl;
+		fout2 << "}," << endl;
 	}
 	fout1.close();
 	fout2.close();
